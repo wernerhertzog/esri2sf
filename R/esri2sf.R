@@ -38,13 +38,6 @@ esri2sf <- function(url, outFields = c("*"), where = "1=1", bbox = NULL, token =
                     geomType = NULL, crs = 4326, progress = FALSE, replaceDomainInfo = TRUE, ...) {
 
   #make sure url is valid and error otherwise
-  tryCatch(
-    {
-      esriUrl_isValidFeature(url, token = token, displayReason = TRUE)
-    }, message = function(m) {
-      stop(m$message)
-    }
-  )
 
   layerInfo <- esrimeta(url, token)
 
@@ -101,13 +94,7 @@ esri2sf <- function(url, outFields = c("*"), where = "1=1", bbox = NULL, token =
 esri2df <- function(url, outFields = c("*"), where = "1=1", token = "", progress = FALSE, replaceDomainInfo = TRUE, ...) {
 
   #make sure url is valid and error otherwise
-  tryCatch(
-    {
-      esriUrl_isValidFeature(url, token = token, displayReason = TRUE)
-    }, message = function(m) {
-      stop(m$message)
-    }
-  )
+
 
   layerInfo <- esrimeta(url, token)
 
@@ -130,13 +117,7 @@ esri2df <- function(url, outFields = c("*"), where = "1=1", token = "", progress
 esrimeta <- function(url, token = "", fields = FALSE) {
 
   #make sure url is valid and error otherwise
-  tryCatch(
-    {
-      esriUrl_isValid(url, token = token, displayReason = TRUE)
-    }, message = function(m) {
-      stop(m$message)
-    }
-  )
+
 
   layerInfo <- jsonlite::fromJSON(
     httr::content(
